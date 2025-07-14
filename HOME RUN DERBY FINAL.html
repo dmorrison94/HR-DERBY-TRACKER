@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Home Run Derby Live Tracker</title>
+  <style>
+    body { font-family: sans-serif; text-align: center; background: #f5f5f5; }
+    table { border-collapse: collapse; margin: 20px auto; width: 90%; max-width: 1000px; }
+    th, td { border: 1px solid #999; padding: 8px; text-align: center; }
+    th { background: #444; color: #fff; }
+    .alive { background: #c6f6d5; }
+    .finalist { background: #bee3f8; font-weight: bold; }
+    .eliminated { background: #e2e8f0; text-decoration: line-through; }
+    .winner { background: gold; font-weight: bold; }
+    input[type="number"] { width: 50px; }
+  </style>
+  <script>
+    function updateStatus(rowId, status) {
+      const row = document.getElementById(rowId);
+      row.className = status;
+    }
+
+    function declareWinner() {
+      let highest = -1;
+      let winnerRow = null;
+
+      const table = document.getElementById("tracker");
+      const rows = table.rows;
+
+      for (let i = 1; i < rows.length; i++) {
+        if (rows[i].className === "finalist") {
+          const hr = parseInt(rows[i].querySelector(".finalHR").value) || 0;
+          if (hr > highest) {
+            highest = hr;
+            winnerRow = rows[i];
+          } else if (hr === highest) {
+            const prevGuess = parseInt(winnerRow.querySelector(".guess").textContent);
+            const currentGuess = parseInt(rows[i].querySelector(".guess").textContent);
+            if (Math.abs(currentGuess - hr) < Math.abs(prevGuess - hr)) {
+              winnerRow = rows[i];
+            }
+          }
+        }
+      }
+
+      if (winnerRow) {
+        winnerRow.className = "winner";
+        alert("🏆 " + winnerRow.cells[0].textContent + " wins the Derby!");
+      } else {
+        alert("No finalists or HR totals entered.");
+      }
+    }
+  </script>
+</head>
+<body>
+
+<h2>🏟️ Home Run Derby Live Tracker</h2>
+
+<table id="tracker">
+  <tr>
+    <th>Player</th>
+    <th>Pick</th>
+    <th>Guess</th>
+    <th>Status</th>
+    <th>Final HR</th>
+    <th>Actions</th>
+  </tr>
+
+  <tr id="row1">
+    <td>Darnel</td><td>James Wood</td><td class="guess">19</td>
+    <td></td><td><input type="number" class="finalHR"></td>
+    <td><button onclick="updateStatus('row1','alive')">Alive</button>
+        <button onclick="updateStatus('row1','finalist')">Finalist</button>
+        <button onclick="updateStatus('row1','eliminated')">Eliminated</button></td>
+  </tr>
+
+  <tr id="row2">
+    <td>Stuart</td><td>Cal Raleigh</td><td class="guess">20</td>
+    <td></td><td><input type="number" class="finalHR"></td>
+    <td><button onclick="updateStatus('row2','alive')">Alive</button>
+        <button onclick="updateStatus('row2','finalist')">Finalist</button>
+        <button onclick="updateStatus('row2','eliminated')">Eliminated</button></td>
+  </tr>
+
+  <tr id="row3">
+    <td>Curt</td><td>Matt Olson</td><td class="guess">16</td>
+    <td></td><td><input type="number" class="finalHR"></td>
+    <td><button onclick="updateStatus('row3','alive')">Alive</button>
+        <button onclick="updateStatus('row3','finalist')">Finalist</button>
+        <button onclick="updateStatus('row3','eliminated')">Eliminated</button></td>
+  </tr>
+
+  <tr id="row4">
+    <td>Doug</td><td>Oneil Cruz</td><td class="guess">22</td>
+    <td></td><td><input type="number" class="finalHR"></td>
+    <td><button onclick="updateStatus('row4','alive')">Alive</button>
+        <button onclick="updateStatus('row4','finalist')">Finalist</button>
+        <button onclick="updateStatus('row4','eliminated')">Eliminated</button></td>
+  </tr>
+
+  <tr id="row5">
+    <td>Derek</td><td>Caleigh</td><td class="guess">15</td>
+    <td></td><td><input type="number" class="finalHR"></td>
+    <td><button onclick="updateStatus('row5','alive')">Alive</button>
+        <button onclick="updateStatus('row5','finalist')">Finalist</button>
+        <button onclick="updateStatus('row5','eliminated')">Eliminated</button></td>
+  </tr>
+
+  <tr id="row6">
+    <td>Tyler</td><td>Cal Raleigh</td><td class="guess">16</td>
+    <td></td><td><input type="number" class="finalHR"></td>
+    <td><button onclick="updateStatus('row6','alive')">Alive</button>
+        <button onclick="updateStatus('row6','finalist')">Finalist</button>
+        <button onclick="updateStatus('row6','eliminated')">Eliminated</button></td>
+  </tr>
+
+  <tr id="row7">
+    <td>Warren</td><td>Cal Raleigh</td><td class="guess">15</td>
+    <td></td><td><input type="number" class="finalHR"></td>
+    <td><button onclick="updateStatus('row7','alive')">Alive</button>
+        <button onclick="updateStatus('row7','finalist')">Finalist</button>
+        <button onclick="updateStatus('row7','eliminated')">Eliminated</button></td>
+  </tr>
+
+  <tr id="row8">
+    <td>Jason</td><td>James Wood</td><td class="guess">22</td>
+    <td></td><td><input type="number" class="finalHR"></td>
+    <td><button onclick="updateStatus('row8','alive')">Alive</button>
+        <button onclick="updateStatus('row8','finalist')">Finalist</button>
+        <button onclick="updateStatus('row8','eliminated')">Eliminated</button></td>
+  </tr>
+
+  <tr id="row9">
+    <td>Colin</td><td>Matt Holson</td><td class="guess">20</td>
+    <td></td><td><input type="number" class="finalHR"></td>
+    <td><button onclick="updateStatus('row9','alive')">Alive</button>
+        <button onclick="updateStatus('row9','finalist')">Finalist</button>
+        <button onclick="updateStatus('row9','eliminated')">Eliminated</button></td>
+  </tr>
+
+  <tr id="row10">
+    <td>Danny</td><td>Cal Raleigh</td><td class="guess">17</td>
+    <td></td><td><input type="number" class="finalHR"></td>
+    <td><button onclick="updateStatus('row10','alive')">Alive</button>
+        <button onclick="updateStatus('row10','finalist')">Finalist</button>
+        <button onclick="updateStatus('row10','eliminated')">Eliminated</button></td>
+  </tr>
+
+  <tr id="row11">
+    <td>Critch</td><td>Cal Raleigh</td><td class="guess">19</td>
+    <td></td><td><input type="number" class="finalHR"></td>
+    <td><button onclick="updateStatus('row11','alive')">Alive</button>
+        <button onclick="updateStatus('row11','finalist')">Finalist</button>
+        <button onclick="updateStatus('row11','eliminated')">Eliminated</button></td>
+  </tr>
+
+  <tr id="row12">
+    <td>Young Mat</td><td>Cal Raleigh</td><td class="guess">12</td>
+    <td></td><td><input type="number" class="finalHR"></td>
+    <td><button onclick="updateStatus('row12','alive')">Alive</button>
+        <button onclick="updateStatus('row12','finalist')">Finalist</button>
+        <button onclick="updateStatus('row12','eliminated')">Eliminated</button></td>
+  </tr>
+
+</table>
+
+<button onclick="declareWinner()" style="margin:20px; padding:10px 20px; font-size:16px;">Declare Winner</button>
+
+</body>
+</html>
